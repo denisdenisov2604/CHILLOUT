@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHILLOUT | Штаны</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f4f4f4;
+    }
+    header {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+    #siteTitle {
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #iconButtons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    #iconButtons a {
+      color: #333;
+      font-size: 20px;
+      text-decoration: none;
+      position: relative;
+    }
+    #cartCount {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+    .product-img {
+      width: 300px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div id="siteTitle" onclick="location.href='index.html'">CHILLOUT</div>
+    <div id="iconButtons">
+      <a href="cart.html">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount">0</span>
+      </a>
+      <a href="profile.html"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Штаны</h1>
+    <img class="product-img" src="img/images.png" alt="Штаны" />
+  </main>
+
+  <script>
+    function updateCartCount() {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const totalItems = orders.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+    updateCartCount();
+  </script>
+</body>
+</html>

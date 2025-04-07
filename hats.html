@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHILLOUT | Шапки</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f4f4f4;
+    }
+    header {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+    #siteTitle {
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      margin: 0 20px;
+    }
+    #iconButtons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    #iconButtons a {
+      color: #333;
+      font-size: 20px;
+      position: relative;
+      text-decoration: none;
+    }
+    #cartCount {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 5px;
+      border-radius: 50%;
+    }
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .product-img {
+      width: 300px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div id="siteTitle" onclick="location.href='index.html'">CHILLOUT</div>
+    <div class="search-bar"></div>
+    <div id="iconButtons">
+      <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cartCount">0</span></a>
+      <a href="profile.html"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Шапки</h1>
+    <img class="product-img" src="img/trafaret-papik-pro-13ca-p-trafareti-shapka-9.jpg" alt="Шапки">
+  </main>
+
+  <script>
+    function updateCartCount() {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const totalItems = orders.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+    updateCartCount();
+  </script>
+
+</body>
+</html>
