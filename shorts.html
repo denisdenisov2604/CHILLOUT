@@ -1,103 +1,54 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CHILLOUT | Шорты</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #ffffff;
-    }
-    header {
-      background: #fff;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-    }
-    #siteTitle {
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .search-bar {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      margin: 0 20px;
-    }
-    .search-bar input {
-      padding: 8px;
-      width: 300px;
-      border-radius: 4px 0 0 4px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    .search-bar button {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-left: none;
-      background: #eee;
-      cursor: pointer;
-      border-radius: 0 4px 4px 0;
-    }
-    #iconButtons {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-    #iconButtons a {
-      color: #333;
-      font-size: 20px;
-      position: relative;
-      text-decoration: none;
-    }
-    #cartCount {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: red;
-      color: white;
-      font-size: 12px;
-      padding: 2px 5px;
-      border-radius: 50%;
-    }
-    main {
-      padding: 30px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
-    .product-img {
-      width: 300px;
-      border-radius: 10px;
-    }
+    body { margin: 0; font-family: sans-serif; background: #fff; }
+    header { background: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; }
+    .logo { font-size: 28px; font-weight: bold; cursor: pointer; }
+    .icons { display: flex; gap: 20px; align-items: center; }
+    .icons a { color: #333; font-size: 22px; text-decoration: none; position: relative; }
+    #cartCount { position: absolute; top: -8px; right: -10px; background: red; color: white; font-size: 12px; padding: 2px 6px; border-radius: 50%; }
+    h1 { text-align: center; margin: 20px 0; font-size: 26px; }
+    .products { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 0 20px 40px; }
+    .product { background: #fff; border: 1px solid #ccc; border-radius: 10px; width: 200px; height: 280px; display: flex; flex-direction: column; justify-content: space-between; text-align: center; padding: 10px; }
+    .product img { width: 100%; border-radius: 8px; max-height: 200px; object-fit: contain; }
+    .product h3 { font-size: 18px; margin: 0 0 5px 0; font-weight: bold; }
+    .product button { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
   </style>
 </head>
 <body>
-
   <header>
-    <div id="siteTitle" onclick="location.href='index.html'">CHILLOUT</div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Поиск товаров..." />
-      <button onclick="searchProduct()"><i class="fas fa-search"></i></button>
-    </div>
-    <div id="iconButtons">
+    <div class="logo" onclick="location.href='index.html'">CHILLOUT</div>
+    <div class="icons">
       <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cartCount">0</span></a>
       <a href="profile.html"><i class="fas fa-user"></i></a>
     </div>
   </header>
 
-  <main>
-    <h1>Шорты</h1>
-    <img class="product-img" src="img/jeans-shorts-hand-drawn-vector-illustration_685085-10234.jpg" alt="Shorts">
-  </main>
+  <h1>Шорты</h1>
+  <div class="products">
+    
+        <div class="product">
+          <img src="img/short1.jpg" alt="Шорты 1"/>
+          <h3>Шорты 1</h3>
+          <button onclick="addToCart('Шорты 1', 15)">Добавить в корзину</button>
+        </div>
+        <div class="product">
+          <img src="img/short2.jpg" alt="Шорты 2"/>
+          <h3>Шорты 2</h3>
+          <button onclick="addToCart('Шорты 2', 18)">Добавить в корзину</button>
+        </div>
+        <div class="product">
+          <img src="img/short3.jpg" alt="Шорты 3"/>
+          <h3>Шорты 3</h3>
+          <button onclick="addToCart('Шорты 3', 22)">Добавить в корзину</button>
+        </div>
+  </div>
 
   <script>
     function updateCartCount() {
@@ -106,14 +57,17 @@
       document.getElementById('cartCount').textContent = totalItems;
     }
 
-    function searchProduct() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const h1 = document.querySelector("h1").textContent.toLowerCase();
-      document.body.style.display = h1.includes(input) ? 'block' : 'none';
+    function addToCart(name, price) {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const existing = orders.find(item => item.name === name);
+      if (existing) { existing.quantity += 1; }
+      else { orders.push({ name, price, quantity: 1 }); }
+      localStorage.setItem('orders', JSON.stringify(orders));
+      updateCartCount();
+      alert(`${name} добавлено в корзину`);
     }
 
     updateCartCount();
   </script>
-
 </body>
 </html>
